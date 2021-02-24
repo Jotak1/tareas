@@ -1,14 +1,30 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Formulario from "./components/Formulario";
 import Tarea from "./components/Tarea";
 
 function App() {
+
+  // tareas en local storage
+  let tareasIniciales = JSON.parse(localStorage.getItem('tareas'));
+  if(!tareasIniciales) {
+    tareasIniciales = [];
+  }
   // Arreglo de tareas
-  const [tareas, guardarTareas] = useState([]);
+  const [tareas, guardarTareas] = useState(tareasIniciales);
 
   const crearTarea = (tarea) => {
     guardarTareas([...tareas, tarea]);
   };
+
+  //useEffect paara actuar cuando el state cambia
+  useEffect(() => {
+    if(tareasIniciales){
+      localStorage.setItem('tareas', JSON.stringify(tareas))
+    } else{
+      localStorage.setItem('tareas', JSON.stringify())
+    }
+  }, [tareas, tareasIniciales] );
+
 
   const eliminarTarea = (id) => {
     const nuevasTareas = tareas.filter((tarea) => tarea.id !== id);

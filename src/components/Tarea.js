@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Tarea = ({tarea, eliminarTarea}) => {
     return (
@@ -13,5 +14,9 @@ const Tarea = ({tarea, eliminarTarea}) => {
         >Eliminar &times;</button>
     </div>
     )}
- 
+Tarea.propTypes = {
+    tarea: PropTypes.object.isRequired,
+    eliminarTarea: PropTypes.func.isRequired
+    } 
+
 export default Tarea;
